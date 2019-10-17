@@ -71,7 +71,40 @@ public class MagicSquare {
      */
     public static boolean isMagicSquare(Integer[][] square) {
         // TODO: You need to implement this method.
-        return false;
+
+        int col_length = square[0].length;
+        int row_length = square[1].length;
+
+        int once_sum = 0;
+        for (int col=0;col<col_length;col++) {
+            int now = 0;
+            for (int row=0;row<row_length;row++) {
+                now += square[row][col];
+            }
+            if (col != 0) {
+                if (now != once_sum) {
+                    return false;
+                }
+            }
+            if (once_sum == 0) {
+                once_sum = now;
+            }
+        }
+        for (int row=0;row<row_length;row++) {
+            int now = 0;
+            for (int col=0;col<col_length;col++) {
+                now += square[row][col];
+            }
+            if (row != 0) {
+                if (now != once_sum) {
+                    return false;
+                }
+            }
+            if (once_sum == 0) {
+                once_sum = now;
+            }
+        }
+        return true;
     }
 
     /**

@@ -1,5 +1,10 @@
 package ca.ciccc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.IntStream;
+
 /**
  * This is the starter file for the Assignment 2
  *
@@ -7,6 +12,12 @@ package ca.ciccc;
  * @version 1.0
  */
 public class Assignment2 {
+    public static void main(String[] args) {
+
+        int n = 4;
+
+    }
+
     /**
      * Write nested for-loops to produce the following output from the given input n.
      * @param n number to create a pattern.
@@ -24,8 +35,27 @@ public class Assignment2 {
     public String numberLoops(int n) {
         // Todo: your code goes here
 
-        return null;
+
+        String total = "";
+        for (int i=0;i<n;i++) {
+            String row = "";
+            for (int j=0;j<n;j++) {
+                if ((i+1) + (j+1) > n) {
+                    row += String.valueOf(i+1);
+                } else {
+                    row += ".";
+                }
+                if (j+1 == n) {
+                    total += row;
+                    if (i+1 < n) {
+                        total += "\n";
+                    }
+                }
+            }
+        }
+        return total;
     }
+
 
     /**
      * Given an array of integers, return true if the number of 1s is greater than the number of 7s
@@ -34,8 +64,9 @@ public class Assignment2 {
      */
     public boolean countNumbers(int[] nums) {
         // Todo: your code goes here
-
-        return false;
+        long one = Arrays.stream(nums).filter(i->i==1).count();
+        long seven = Arrays.stream(nums).filter(i->i==7).count();
+        return one > seven ? true:false;
     }
 
     /**
@@ -52,8 +83,20 @@ public class Assignment2 {
      */
     public int sumExcept13(int[] nums) {
         // Todo: your code goes here
-
-        return 0;
+        int sum = 0;
+        boolean flg = false;
+        if (nums.length > 0) {
+            for (int i : nums) {
+                if (flg) {
+                    flg = false;
+                } else if (i == 13) {
+                    flg = true;
+                } else {
+                    sum += i;
+                }
+            }
+        }
+        return sum;
     }
 
     /**
@@ -70,7 +113,17 @@ public class Assignment2 {
     public int[] shiftArray(int[] nums) {
         // Todo: your code goes here
 
-        return null;
+        int[] shifted_nums = new int[nums.length];
+        if (nums.length > 0) {
+            for (int i=0;i<nums.length;i++) {
+                if (i+1==nums.length) {
+                    shifted_nums[i] = nums[0];
+                } else {
+                    shifted_nums[i] = nums[i+1];
+                }
+            }
+        }
+        return shifted_nums;
     }
 
     /**
@@ -81,6 +134,21 @@ public class Assignment2 {
     public boolean tripleIncreasingOrder(int[] nums) {
         // Todo: your code goes here
 
+        if (nums.length > 0) {
+            int count = 1;
+            int pre = 0;
+            for (int i=0;i<nums.length;i++) {
+                if (i != 0 && nums[i] == pre+1) {
+                    count++;
+                } else {
+                    count = 1;
+                }
+                if (count == 3) {
+                    return true;
+                }
+                pre = nums[i];
+            }
+        }
         return false;
     }
 
@@ -91,8 +159,11 @@ public class Assignment2 {
      */
     public boolean evenOrOdd(int[] nums){
         // Todo: your code goes here
-
-        return false;
+        long count_odd = 0;
+        long count_even = 0;
+        count_odd = Arrays.stream(nums).filter(i->i%2==0).count();
+        count_even = Arrays.stream(nums).filter(i->i%2==1).count();
+        return count_odd == count_even ? true:false;
     }
 }
 
